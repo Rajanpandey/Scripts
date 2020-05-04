@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-# gem install pdf-reader
+# system 'gem install pdf-reader'
 require 'rubygems'
 require 'pdf/reader'
 
@@ -8,7 +8,7 @@ require 'pdf/reader'
 filename = ""
 
 PDF::Reader.open(filename) do |reader|
-  reader.pages.each do |page|
-    puts page.text
-  end
+    reader.pages.each do |page|
+        puts page.text
+    end
 end
