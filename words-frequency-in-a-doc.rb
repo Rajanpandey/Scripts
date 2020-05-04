@@ -36,12 +36,12 @@ def parse_file(file_to_parse)
   parse_pdf(file_to_parse)
 end
 
-def validate
+def validate_file
   raise 'Provide file name' if FILE_TO_PARSE.strip.empty?
   raise 'File not supported' unless ACCEPTED_DOC_EXTENTIONS.include?(File.extname(FILE_TO_PARSE))
 end
 
-validate
+validate_file
 body = parse_file(FILE_TO_PARSE)
 dictionary = hash_of_word_count(body)
 pp sort_and_reject_uncommon_words(dictionary)
