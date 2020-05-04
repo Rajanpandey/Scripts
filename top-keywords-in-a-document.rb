@@ -7,7 +7,7 @@ MEGA_DICTIONARY_NAME = 'Mega Dictionary'.freeze
 OUTPUT_FILE = 'result.txt'.freeze
 
 def write_output_to_file(file_name, dictionary)
-  File.open("#{__dir__}/#{OUTPUT_FILE}", 'a') { |output_file| output_file.write("#{file_name}: \n #{JSON.pretty_generate(sort_and_reject_uncommon_words(dictionary))} \n\n") }
+  File.write(OUTPUT_FILE, "#{file_name}: \n #{JSON.pretty_generate(sort_and_reject_uncommon_words(dictionary))} \n\n", mode: 'a')
 end
 
 def sort_and_reject_uncommon_words(dictionary)
