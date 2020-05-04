@@ -14,11 +14,11 @@ def sort_and_reject_uncommon_words(dictionary)
   dictionary.sort_by(&:last).reverse.to_h.select { |_, value| value >= MIN_NO_OF_OCCURRENCES }
 end
 
-def dictionary_of_word_count(string)
-  frequency = Hash.new(0)
-  string.split(' ').each { |word| frequency[word.downcase] += 1 }
-  frequency.each { |word, count| $mega_dictionary[word] += count }
-  frequency
+def dictionary_of_word_count(document_body)
+  dictionary = Hash.new(0)
+  document_body.split(' ').each { |word| dictionary[word.downcase] += 1 }
+  dictionary.each { |word, count| $mega_dictionary[word] += count }
+  dictionary
 end
 
 def parse_pdf(pdf_file_to_parse)
