@@ -1,5 +1,7 @@
 #!/usr/bin/ruby
 
+#Script to count folders in the directory and number of files in each folder
+
 list_of_folders = 
     Dir.entries(__dir__).select { |entry| 
         File.directory? File.join(__dir__,entry) and !(entry =='.' || entry == '..') 
