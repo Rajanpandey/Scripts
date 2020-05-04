@@ -25,7 +25,7 @@ end
 
 def parse_pdf(pdf_file_to_parse)
   # If running for the first time, either run 'gem install pdf-reader' in cmd
-  # or uncomment the line below for one time only
+  # or uncomment the line below for one time (otherwise it'll install the gem every time you run the script)
   # system 'gem install pdf-reader'
   require 'rubygems'
   require 'pdf/reader'
