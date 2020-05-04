@@ -1,2 +1,2 @@
 # Scripts
-Scripts used to automate redundant tasks
+Scripts used to automate mundane tasks
