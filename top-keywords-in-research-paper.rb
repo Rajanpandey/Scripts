@@ -4,7 +4,6 @@ require 'json'
 MIN_NO_OF_OCCURRENCES = 1
 ACCEPTED_DOC_EXTENTIONS = ['.pdf', '.txt'].freeze
 OUTPUT_FILE = 'result.txt'.freeze
-$mega_dictionary = Hash.new(0)
 
 def write_output_to_file(file_name, dictionary)
   File.open("#{__dir__}/#{OUTPUT_FILE}", 'a') { |output_file| output_file.write("#{file_name}: \n #{JSON.pretty_generate(sort_and_reject_uncommon_words(dictionary))} \n\n") }
@@ -14,10 +13,13 @@ def sort_and_reject_uncommon_words(dictionary)
   dictionary.sort_by(&:last).reverse.to_h.select { |_, value| value >= MIN_NO_OF_OCCURRENCES }
 end
 
+def add_dictionary_to_mega_dictionary(dictionary, mega_dictionary)
+  dictionary.each { |word, count| mega_dictionary[word] += count }
+end
+
 def dictionary_of_word_count(document_body)
   dictionary = Hash.new(0)
   document_body.split(' ').each { |word| dictionary[word.downcase] += 1 }
-  dictionary.each { |word, count| $mega_dictionary[word] += count }
   dictionary
 end
 
@@ -46,10 +48,12 @@ def documents_in_this_directory
   Dir.entries('.').select! { |file_name| ACCEPTED_DOC_EXTENTIONS.include?(File.extname(file_name)) }
 end
 
+mega_dictionary = Hash.new(0)
 documents_in_this_directory.each do |file_name|
   body = parse_file(file_name)
   dictionary = dictionary_of_word_count(body)
+  add_dictionary_to_mega_dictionary(dictionary, mega_dictionary)
   # Comment below line if you dont want individual dictionary of every document in the output file
   write_output_to_file(file_name, dictionary)
 end
-write_output_to_file('Mega Dictionary', $mega_dictionary)
+write_output_to_file('Mega Dictionary', mega_dictionary)
