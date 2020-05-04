@@ -22,7 +22,8 @@ def dictionary_of_word_count(document_body)
 end
 
 def parse_pdf(pdf_file_to_parse)
-  # If running for the first time, either run 'gem install pdf-reader' in cmd or uncomment the line below for one time
+  # If running for the first time, either run 'gem install pdf-reader' in cmd
+  # or uncomment the line below for one time only
   # system 'gem install pdf-reader'
   require 'rubygems'
   require 'pdf/reader'
