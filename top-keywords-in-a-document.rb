@@ -3,6 +3,7 @@ require 'json'
 
 MIN_NO_OF_OCCURRENCES = 1
 ACCEPTED_DOC_EXTENTIONS = ['.pdf', '.txt'].freeze
+MEGA_DICTIONARY_NAME = 'Mega Dictionary'.freeze
 OUTPUT_FILE = 'result.txt'.freeze
 
 def write_output_to_file(file_name, dictionary)
@@ -56,4 +57,4 @@ documents_in_this_directory.each do |file_name|
   # Comment below line if you dont want individual dictionary of every document in the output file
   write_output_to_file(file_name, dictionary)
 end
-write_output_to_file('Mega Dictionary', mega_dictionary)
+write_output_to_file(MEGA_DICTIONARY_NAME, mega_dictionary)
