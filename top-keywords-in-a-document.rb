@@ -24,6 +24,10 @@ def dictionary_of_word_count(document_body)
   dictionary
 end
 
+def format_body(body)
+  body.gsub!(/[^a-z0-9\s]/i, '')
+end
+
 def parse_pdf(pdf_file_to_parse)
   # If running for the first time, either run 'gem install pdf-reader' in cmd
   # or uncomment the line below for one time (otherwise it'll install the gem every time you run the script)
@@ -52,7 +56,8 @@ end
 mega_dictionary = Hash.new(0)
 documents_in_this_directory.each do |file_name|
   body = parse_file(file_name)
-  dictionary = dictionary_of_word_count(body)
+  formatted_body = format_body(body)
+  dictionary = dictionary_of_word_count(formatted_body)
   add_dictionary_to_mega_dictionary(dictionary, mega_dictionary)
   # Comment below line if you dont want individual dictionary of every document in the output file
   write_output_to_file(file_name, dictionary)
