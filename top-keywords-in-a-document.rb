@@ -24,8 +24,8 @@ def dictionary_of_word_count(document_body)
   dictionary
 end
 
-def format_body(body)
-  body.gsub!(/[^a-z0-9\s]/i, '')
+def remove_punctuations(document_body)
+  document_body.gsub!(/[^a-z0-9\s]/i, '')
 end
 
 def parse_pdf(pdf_file_to_parse)
@@ -56,7 +56,7 @@ end
 mega_dictionary = Hash.new(0)
 documents_in_this_directory.each do |file_name|
   body = parse_file(file_name)
-  formatted_body = format_body(body)
+  formatted_body = remove_punctuations(body)
   dictionary = dictionary_of_word_count(formatted_body)
   add_dictionary_to_mega_dictionary(dictionary, mega_dictionary)
   # Comment below line if you dont want individual dictionary of every document in the output file
