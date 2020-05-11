@@ -8,7 +8,8 @@ uri = URI(URL)
 response = Net::HTTP.get(uri)
 DISTRICT_WISE_DATA = JSON.parse(response).freeze
 
-def parse_district_wise_data(case_type, min_number_of_cases = 0)
+# edit min_number_of_cases to filter districts or pass it as individual arguments in functions below
+def parse_district_wise_data(case_type, min_number_of_cases = 500)
   delhi_cases_count = 0
   districts_with_min_num_of_cases = {}
   DISTRICT_WISE_DATA.each do |state, state_data|
@@ -37,7 +38,14 @@ def districts_with_min_num_of_deceased_cases
   parse_district_wise_data('deceased')
 end
 
+puts "Confirmed cases data:"
 pp districts_with_min_num_of_confirmed_cases
+
+puts "\nActive cases data:"
 pp districts_with_min_num_of_active_cases
+
+puts "\nRecovered cases data:"
 pp districts_with_min_num_of_recovered_cases
+
+puts "\nDeceased cases data:"
 pp districts_with_min_num_of_deceased_cases
