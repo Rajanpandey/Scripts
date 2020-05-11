@@ -8,7 +8,8 @@ uri = URI(URL)
 response = Net::HTTP.get(uri)
 DISTRICT_WISE_DATA = JSON.parse(response).freeze
 
-# edit min_number_of_cases to filter districts or pass it as individual arguments in functions below
+# edit min_number_of_cases to filter districts
+# or pass it as an arument while calling the function
 def parse_district_wise_data(case_type, min_number_of_cases = 500)
   delhi_cases_count = 0
   districts_with_min_num_of_cases = {}
