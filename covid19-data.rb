@@ -3,13 +3,13 @@
 require 'net/http'
 require 'json'
 
+NO_OF_CASES_TO_FETCH = 591
+MIN_NUMBER_OF_CASES = 0
+CASE_TYPE = %w[confirmed active recovered deceased].freeze
 URL = 'https://api.covid19india.org/state_district_wise.json'.freeze
 uri = URI(URL)
 response = Net::HTTP.get(uri)
 DISTRICT_WISE_DATA = JSON.parse(response).freeze
-CASE_TYPE = %w[confirmed active recovered deceased].freeze
-NO_OF_CASES_TO_FETCH = 64
-MIN_NUMBER_OF_CASES = 100
 
 def parse_district_wise_data(case_type)
   delhi_cases_count = 0
@@ -25,18 +25,18 @@ def parse_district_wise_data(case_type)
 end
 
 def fill_cell(data)
-  data ? "#{data[0].ljust(19)} #{data[1].to_s.rjust(5)}" : ' '.ljust(25)
+  data ? "#{data[0].ljust(25)} #{data[1].to_s.rjust(5)}" : ' '.ljust(31)
 end
 
 def table(confirmed, active, recovered, deceased)
-  table_string = '_' * 141
+  table_string = '_' * 165
 
   table_string += "\n|   Index   |"
   CASE_TYPE.each do |case_type|
-    table_string += "   #{case_type.capitalize.ljust(19)} #{'Count'.rjust(5)}   |"
+    table_string += "   #{case_type.capitalize.ljust(25)} #{'Count'.rjust(5)}   |"
   end
 
-  table_string += "\n|#{'-' * 139}|\n"
+  table_string += "\n|#{'-' * 163}|\n"
 
   (0..NO_OF_CASES_TO_FETCH - 1).each do |row|
     table_string += "|   #{(row + 1).to_s.ljust(5)}   "
@@ -46,7 +46,7 @@ def table(confirmed, active, recovered, deceased)
     table_string += "|   #{fill_cell(deceased[row])}   |\n"
   end
 
-  table_string += '_' * 141
+  table_string += '_' * 165
 end
 
 confirmed, active, recovered, deceased = CASE_TYPE.map do |case_type|
