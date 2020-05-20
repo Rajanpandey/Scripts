@@ -3,7 +3,7 @@
 require 'net/http'
 require 'json'
 
-NO_OF_CASES_TO_FETCH = 591
+NO_OF_DISTRICTS_TO_FETCH = 591
 MIN_NUMBER_OF_CASES = 0
 CASE_TYPE = %w[confirmed active recovered deceased].freeze
 URL = 'https://api.covid19india.org/state_district_wise.json'.freeze
@@ -38,7 +38,7 @@ def table(confirmed, active, recovered, deceased)
 
   table_string += "\n|#{'-' * 163}|\n"
 
-  (0..NO_OF_CASES_TO_FETCH - 1).each do |row|
+  (0..NO_OF_DISTRICTS_TO_FETCH - 1).each do |row|
     table_string += "|   #{(row + 1).to_s.ljust(5)}   "
     table_string += "|   #{fill_cell(confirmed[row])}   "
     table_string += "|   #{fill_cell(active[row])}   "
