@@ -28,29 +28,29 @@ def fill_cell(data)
   data ? "#{data[0].ljust(19)} #{data[1].to_s.rjust(5)}" : ' '.ljust(25)
 end
 
-def gridview(confirmed, active, recovered, deceased)
-  ans = '_' * 141
+def table(confirmed, active, recovered, deceased)
+  table_string = '_' * 141
 
-  ans += "\n|   Index   |"
+  table_string += "\n|   Index   |"
   CASE_TYPE.each do |case_type|
-    ans += "   #{case_type.capitalize.ljust(19)} #{'Count'.rjust(5)}   |"
+    table_string += "   #{case_type.capitalize.ljust(19)} #{'Count'.rjust(5)}   |"
   end
 
-  ans += "\n|#{'-' * 139}|\n"
+  table_string += "\n|#{'-' * 139}|\n"
 
   (0..NO_OF_CASES_TO_FETCH - 1).each do |row|
-    ans += "|   #{(row + 1).to_s.ljust(5)}   "
-    ans += "|   #{fill_cell(confirmed[row])}   "
-    ans += "|   #{fill_cell(active[row])}   "
-    ans += "|   #{fill_cell(recovered[row])}   "
-    ans += "|   #{fill_cell(deceased[row])}   |\n"
+    table_string += "|   #{(row + 1).to_s.ljust(5)}   "
+    table_string += "|   #{fill_cell(confirmed[row])}   "
+    table_string += "|   #{fill_cell(active[row])}   "
+    table_string += "|   #{fill_cell(recovered[row])}   "
+    table_string += "|   #{fill_cell(deceased[row])}   |\n"
   end
 
-  ans += '_' * 141
+  table_string += '_' * 141
 end
 
 confirmed, active, recovered, deceased = CASE_TYPE.map do |case_type|
   parse_district_wise_data(case_type)
 end
 
-puts gridview(confirmed.to_a, active.to_a, recovered.to_a, deceased.to_a)
+puts table(confirmed.to_a, active.to_a, recovered.to_a, deceased.to_a)
