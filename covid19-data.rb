@@ -3,7 +3,7 @@
 require 'net/http'
 require 'json'
 
-NO_OF_DISTRICTS_TO_FETCH = 591
+NO_OF_DISTRICTS_TO_FETCH = 64
 MIN_NUMBER_OF_CASES = 0
 CASE_TYPE = %w[confirmed active recovered deceased].freeze
 URL = 'https://api.covid19india.org/state_district_wise.json'.freeze
