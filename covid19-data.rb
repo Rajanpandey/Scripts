@@ -3,7 +3,7 @@
 require 'net/http'
 require 'json'
 
-NO_OF_DISTRICTS_TO_FETCH = 32
+NO_OF_DISTRICTS_TO_FETCH = 64
 MIN_NUMBER_OF_CASES = 0
 CASE_TYPE = %w[confirmed active recovered deceased].freeze
 URL = 'https://api.covid19india.org/state_district_wise.json'.freeze
@@ -25,18 +25,18 @@ def parse_district_wise_data(case_type)
 end
 
 def fill_cell(data)
-  data ? "#{data[0].ljust(25)} #{data[1].to_s.rjust(5)}" : ' '.ljust(31)
+  data ? "#{data[0].ljust(25)} #{data[1].to_s.rjust(6)}" : ' '.ljust(31)
 end
 
 def table(confirmed, active, recovered, deceased)
-  table_string = '_' * 165
+  table_string = '_' * 169
 
   table_string += "\n|   Index   |"
   CASE_TYPE.each do |case_type|
-    table_string += "   #{case_type.capitalize.ljust(25)} #{'Count'.rjust(5)}   |"
+    table_string += "   #{case_type.capitalize.ljust(25)} #{'Count'.rjust(6)}   |"
   end
 
-  table_string += "\n|#{'-' * 163}|\n"
+  table_string += "\n|#{'-' * 167}|\n"
 
   (0..NO_OF_DISTRICTS_TO_FETCH - 1).each do |row|
     table_string += "|   #{(row + 1).to_s.ljust(5)}   "
@@ -46,7 +46,7 @@ def table(confirmed, active, recovered, deceased)
     table_string += "|   #{fill_cell(deceased[row])}   |\n"
   end
 
-  table_string += '_' * 165
+  table_string += '_' * 169
 end
 
 confirmed, active, recovered, deceased = CASE_TYPE.map do |case_type|
