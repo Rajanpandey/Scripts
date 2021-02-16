@@ -10,12 +10,14 @@ URL = 'https://api.covid19india.org/state_district_wise.json'.freeze
 uri = URI(URL)
 response = Net::HTTP.get(uri)
 DISTRICT_WISE_DATA = JSON.parse(response).freeze
+UNAVAILABLE_DATA_DISTRICTS = ["Telangana", "Manipur", "Assam"]
 
 def parse_district_wise_data(case_type)
   delhi_cases_count = 0
   districts_with_min_num_of_cases = {}
   DISTRICT_WISE_DATA.each do |state, state_data|
     state_data['districtData'].each do |district, district_data|
+      next if UNAVAILABLE_DATA_DISTRICTS.include?(state)
       districts_with_min_num_of_cases[district] = district_data[case_type] if state != 'Delhi' && district_data[case_type] > MIN_NUMBER_OF_CASES
       delhi_cases_count += district_data[case_type] if state == 'Delhi'
     end
