@@ -10,7 +10,7 @@ URL = 'https://api.covid19india.org/state_district_wise.json'.freeze
 uri = URI(URL)
 response = Net::HTTP.get(uri)
 DISTRICT_WISE_DATA = JSON.parse(response).freeze
-UNAVAILABLE_DATA_DISTRICTS = ["Telangana", "Manipur", "Assam"]
+UNAVAILABLE_DATA_DISTRICTS = %w[Telangana Manipur Assam].freeze
 
 def parse_district_wise_data(case_type)
   delhi_cases_count = 0
