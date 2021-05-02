@@ -6,7 +6,7 @@ require 'json'
 NO_OF_DISTRICTS_TO_FETCH = 64
 MIN_NUMBER_OF_CASES = 0
 CASE_TYPES = %w[confirmed active recovered deceased].freeze
-STATES_WITH_MISSING_DISTRICT_DATA = ['Andaman and Nicobar Islands', 'Assam', 'Goa', 'Manipur', 'Sikkim', 'Telangana'].freeze
+STATES_WITH_MISSING_DISTRICT_DATA = ['Andaman and Nicobar Islands', 'Assam', 'Delhi', 'Goa', 'Manipur', 'Sikkim', 'Telangana'].freeze
 
 URL = 'https://api.covid19india.org/state_district_wise.json'.freeze
 uri = URI(URL)
