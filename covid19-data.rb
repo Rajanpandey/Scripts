@@ -17,7 +17,7 @@ def parse_district_wise_data(case_type)
   district_case_count = {}
   DISTRICT_WISE_DATA.each do |state, state_data|
     if STATES_WITH_MISSING_DISTRICT_DATA.include?(state)
-      state_case_count = state_data['districtData'].values.map { |val| val[case_type] }.reduce(&:+)
+      state_case_count = state_data['districtData'].values.map { |district| district[case_type] }.reduce(&:+)
       district_case_count[state] = state_case_count if state_case_count > MIN_NUMBER_OF_CASES
     else
       state_data['districtData'].each do |district, district_data|
@@ -25,7 +25,7 @@ def parse_district_wise_data(case_type)
       end
     end
   end
-  district_case_count.sort_by(&:last).reverse.to_h
+  district_case_count.sort_by(&:last).reverse.to_a
 end
 
 def table(confirmed, active, recovered, deceased)
@@ -55,4 +55,4 @@ end
 
 # Main
 confirmed, active, recovered, deceased = CASE_TYPES.map { |case_type| parse_district_wise_data(case_type) }
-puts table(confirmed.to_a, active.to_a, recovered.to_a, deceased.to_a)
+puts table(confirmed, active, recovered, deceased)
