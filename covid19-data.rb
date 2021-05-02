@@ -40,7 +40,8 @@ def table(confirmed, active, recovered, deceased)
   table_string += "\n|#{'-' * 167}|\n"
 
   # Body
-  def fill_cell(cell_data) "#{cell_data[0].ljust(24)} #{cell_data[1].to_s.rjust(7)}" end
+  def separate_number_with_commas(number) number.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse end
+  def fill_cell(cell_data) "#{cell_data[0].ljust(22)} #{separate_number_with_commas(cell_data[1]).to_s.rjust(9)}" end
   (0..NO_OF_DISTRICTS_TO_FETCH - 1).each do |row|
     table_string += "|   #{(row + 1).to_s.ljust(5)}   "
     table_string += "|   #{fill_cell(confirmed[row])}   "
